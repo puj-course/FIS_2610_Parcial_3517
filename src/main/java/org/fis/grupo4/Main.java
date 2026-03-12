@@ -1,7 +1,7 @@
 package org.fis.grupo4;
 
 public class Main {
-    //
+    //Main
     public static void main(String[] args) {
         System.out.println("======================================================");
         System.out.println(" GRUPO 4: SIMULACIÓN - ELECCIONES LEGISLATIVAS 2026");

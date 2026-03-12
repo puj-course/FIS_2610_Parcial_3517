@@ -1,7 +1,7 @@
 package org.fis.grupo4;
 
 public class ValidadorSistema {
-//
+//Validador
     public static boolean esUsuarioValido(Usuario usuario) {
         if (usuario == null) {
             System.out.println(" [Validación Fallida]: El usuario es nulo.");
