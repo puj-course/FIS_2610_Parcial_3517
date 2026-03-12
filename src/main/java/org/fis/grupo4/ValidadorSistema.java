@@ -7,7 +7,7 @@ public class ValidadorSistema {
             System.out.println("❌ [Validación Fallida]: El usuario es nulo.");
             return false;
         }
-        // Validamos con los métodos reales de tu clase Usuario
+
         if (usuario.getDocumento() == null || usuario.getDocumento().trim().isEmpty()) {
             System.out.println("❌ [Validación Fallida]: El usuario '" + usuario.getNombre() + "' no tiene un documento de identidad válido.");
             return false;
