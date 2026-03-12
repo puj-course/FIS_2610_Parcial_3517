@@ -1,4 +1,0 @@
-HU-6: String candidato = "Carlos";
-int votos = 5;
-
-System.out.println("Resultado: " + candidato + " obtuvo " + votos + " votos");
