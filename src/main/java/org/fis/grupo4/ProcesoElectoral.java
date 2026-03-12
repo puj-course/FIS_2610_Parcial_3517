@@ -1,6 +1,6 @@
 package org.fis.grupo4;
 
-public class ProcesoElectoral {
+public class ProcesoElectoral { //para el commit 
     private int id;
     private String nombre;
     private TipoEleccion tipoEleccion;
@@ -72,4 +72,5 @@ public class ProcesoElectoral {
                 ", estado='" + estado + '\'' +
                 '}';
     }
+
 }
