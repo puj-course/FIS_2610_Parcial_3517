@@ -1,63 +1,38 @@
+package org.fis.grupo4;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class SistemaVotacion {
-
-    private List<String> padronElectoral;
-    private List<String> dnisQueYaVotaron; 
     private List<Voto> urnaVirtual;
+    private List<String> documentosProcesados;
 
     public SistemaVotacion() {
-        this.padronElectoral = new ArrayList<>();
-        this.dnisQueYaVotaron = new ArrayList<>();
         this.urnaVirtual = new ArrayList<>();
+        this.documentosProcesados = new ArrayList<>();
     }
 
-    public void registrarVoto(String dni, int opcionSeleccionada) {
-   
-        if (!padronElectoral.contains(dni)) {
-            System.out.println("Error: Documento no encontrado en el padrón del conjunto.");
+    public void registrarVoto(Voto nuevoVoto) {
+        if (nuevoVoto == null || nuevoVoto.getVotante() == null) {
+            System.out.println("!!! ERROR: Voto inválido (objeto nulo). No se registra.");
             return;
         }
-
-
-        if (dnisQueYaVotaron.contains(dni)) {
-            System.out.println("Error: El copropietario ya ha ejercido su derecho al voto.");
+        String doc = nuevoVoto.getVotante().getDocumento();
+        if (doc == null) {
+            System.out.println("!!! ERROR: El votante no tiene documento. No se registra.");
             return;
         }
-
-
-        Voto nuevoVoto = new Voto(opcionSeleccionada);
-        urnaVirtual.add(nuevoVoto);
-        dnisQueYaVotaron.add(dni);
         
-        System.out.println("Voto procesado exitosamente.");
+        if (documentosProcesados.contains(doc)) {
+            System.out.println("!!! ERROR: El documento " + doc + " ya tiene un voto registrado.");
+            return;
+        }
+
+        urnaVirtual.add(nuevoVoto);
+        documentosProcesados.add(doc);
     }
 
     public int getTotalVotos() {
         return urnaVirtual.size();
-    }
-
-    public void agregarDniAlPadron(String dni) {
-        this.padronElectoral.add(dni);
-    }
-}
-
-//voto
-class Voto {
-    private int opcionSeleccionada;
-    private long marcaDeTiempo;
-
-    public Voto(int opcionSeleccionada) {
-        this.opcionSeleccionada = opcionSeleccionada;
-        this.marcaDeTiempo = System.currentTimeMillis();
-    }
-
-    public int getOpcionSeleccionada() {
-        return opcionSeleccionada;
-    }
-
-    public long getMarcaDeTiempo() {
-        return marcaDeTiempo;
     }
 }

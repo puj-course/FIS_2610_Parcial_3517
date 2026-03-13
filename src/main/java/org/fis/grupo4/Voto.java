@@ -1,26 +1,28 @@
-/**
- * Clase que representa el sufragio emitido por un copropietario.
- * Registra la opción elegida y el momento de la votación para auditoría.
- */
+package org.fis.grupo4;
+
 public class Voto {
-    private int opcionSeleccionada;
-    private long marcaDeTiempo;
+    private String idVoto;
+    private Usuario votante;
+    private Candidato candidatoElegido;
+    private String hora;
 
-    /**
-     * Constructor para la clase Voto.
-     * @param opcionSeleccionada El ID de la lista o candidato de la asamblea.
-     */
-    public Voto(int opcionSeleccionada) {
-        this.opcionSeleccionada = opcionSeleccionada;
-        this.marcaDeTiempo = System.currentTimeMillis();
+    public Voto(String idVoto, Usuario votante, Candidato candidatoElegido, String hora) {
+        this.idVoto = idVoto;
+        this.votante = votante;
+        this.candidatoElegido = candidatoElegido;
+        this.hora = hora;
     }
 
-    // Getters para que el Revisor Fiscal pueda analizar los resultados
-    public int getOpcionSeleccionada() {
-        return opcionSeleccionada;
-    }
-
-    public long getMarcaDeTiempo() {
-        return marcaDeTiempo;
+    public Usuario getVotante() { return votante; }
+    public Candidato getCandidatoElegido() { return candidatoElegido; }
+    
+    @Override
+    public String toString() {
+        return "Voto{" +
+                "idVoto='" + idVoto + '\'' +
+                ", votante=" + (votante != null ? votante.getNombre() : "null") +
+                ", candidatoElegido=" + (candidatoElegido != null ? candidatoElegido.getNombre() : "null") +
+                ", hora='" + hora + '\'' +
+                '}';
     }
 }
