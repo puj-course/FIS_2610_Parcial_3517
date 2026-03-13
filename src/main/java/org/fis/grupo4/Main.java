@@ -1,67 +1,62 @@
 package org.fis.grupo4;
 
 public class Main {
-    //Main
     public static void main(String[] args) {
         System.out.println("======================================================");
         System.out.println(" GRUPO 4: SIMULACIÓN - ELECCIONES LEGISLATIVAS 2026");
         System.out.println("======================================================\n");
 
-        try {
-        
-            ProcesoElectoral elecciones = new ProcesoElectoral("PROC-01", "Elecciones 2026", "2026-03-08", "ACTIVO");
-            elecciones.iniciarProceso();
+        // 1. Configurar Proceso
+        ProcesoElectoral elecciones = new ProcesoElectoral(1, "Elecciones Nacionales", TipoEleccion.LEGISLATIVA, "2026-03-08", "CREADO");
+        elecciones.iniciarProceso();
 
-            Candidato candidato1 = new Candidato("C-101", "Juan Perez", "Partido A", "01");
-            Candidato candidato2 = new Candidato("C-102", "Maria Gomez", "Partido B", "02");
+        // 2. Crear Candidatos
+        Candidato[] candidatos = new Candidato[] {
+                // incluir opción de voto en blanco como candidato especial
+                new Candidato("C-000", "Voto en Blanco", "Ninguno", 0),
+                new Candidato("C-101", "Juan Perez", "Partido Liberal", 1),
+                new Candidato("C-102", "Maria Gomez", "Partido Conservador", 2),
+                new Candidato("C-103", "Luis Torres", "Partido Verde", 3),
+                new Candidato("C-104", "Ana Ruiz", "Partido Social", 4)
+        };
 
-
-            Usuario votante1 = new Usuario("U-001", "Carlos Lopez", "100100", "carlos@mail.com");
-            Usuario votante2 = new Usuario("U-002", "Ana Martinez", "200200", "ana@mail.com");
-            
-           
-            Usuario votante3 = new Usuario("U-003", "Luis Fernandez", "", "luis@mail.com"); 
-
- 
-            SistemaVotacion sistemaVotacion = new SistemaVotacion();
-            ResultadoElectoral resultados = new ResultadoElectoral();
-
-            System.out.println("\n>>> INICIANDO JORNADA DE VOTACIÓN <<<\n");
-
-            
-            if (ValidadorSistema.puedeVotar(votante1, candidato1)) {
-                Voto voto1 = new Voto("V-001", votante1, candidato1, "10:00 AM");
-                sistemaVotacion.registrarVoto(voto1);
-                resultados.sumarVoto(candidato1);
-                System.out.println(" Voto registrado para: " + votante1.getNombre() + " (Votó por: " + candidato1.getNombre() + ")");
-            }
-
-            
-            if (ValidadorSistema.puedeVotar(votante2, candidato2)) {
-                Voto voto2 = new Voto("V-002", votante2, candidato2, "11:30 AM");
-                sistemaVotacion.registrarVoto(voto2);
-                resultados.sumarVoto(candidato2);
-                System.out.println("✅ Voto registrado para: " + votante2.getNombre() + " (Votó por: " + candidato2.getNombre() + ")");
-            }
-
-            System.out.println("\n-- Procesando votante 3 --");
-            if (ValidadorSistema.puedeVotar(votante3, candidato1)) {
-                Voto voto3 = new Voto("V-003", votante3, candidato1, "12:15 PM");
-                sistemaVotacion.registrarVoto(voto3);
-                resultados.sumarVoto(candidato1);
-            } else {
-                System.out.println(" Operación denegada para " + votante3.getNombre() + ". Protegiendo integridad de la base de datos.");
-            }
-
-
-            System.out.println("\n>>> JORNADA FINALIZADA <<<\n");
-            elecciones.cerrarProceso();
-            
-            ReporteResultados reporte = new ReporteResultados();
-            reporte.generarReporte(resultados); 
-
-        } catch (Exception e) {
-            System.out.println(" Error crítico no controlado en la simulación: " + e.getMessage());
+        // 3. Generar Votantes de prueba
+        Usuario[] votantes = new Usuario[20];
+        for (int i = 0; i < votantes.length; i++) {
+            votantes[i] = new Usuario("U-" + String.format("%03d", i+1),
+                    "Votante" + (i+1),
+                    (i == 5 ? "" : "DNI" + (1000+i)),    // uno sin documento para validar
+                    "user" + (i+1) + "@mail.com");
         }
+
+        SistemaVotacion sistema = new SistemaVotacion();
+        ResultadoElectoral resultados = new ResultadoElectoral();
+
+        // 4. Simular Votación con Validaciones (votación anónima)
+        java.util.List<String> votantesValidos = new java.util.ArrayList<>();
+        for (Usuario v : votantes) {
+            System.out.println("Procesando a: " + v.getNombre());
+            // no se indica públicamente por quién vota el usuario
+            Candidato elegido = candidatos[(int) (Math.random() * candidatos.length)];
+            if (ValidadorSistema.puedeVotar(v, elegido)) {
+                Voto nuevoVoto = new Voto("V-" + v.getId(), v, elegido, "10:00 AM");
+                sistema.registrarVoto(nuevoVoto);
+                resultados.sumarVoto(elegido);
+                votantesValidos.add(v.getNombre());
+                if ("Voto en Blanco".equals(elegido.getNombre())) {
+                    System.out.println("✅ Voto en blanco registrado.");
+                } else {
+                    System.out.println("✅ Voto registrado anónimamente.");
+                }
+            }
+        }
+
+        // mostrar la lista de personas que emitieron voto sin revelar su selección
+        System.out.println("\n--- LISTA DE VOTANTES VALIDADOS ---");
+        votantesValidos.forEach(nombre -> System.out.println(nombre));
+
+        // 5. Finalizar
+        elecciones.cerrarProceso();
+        resultados.mostrarResultados();
     }
 }
