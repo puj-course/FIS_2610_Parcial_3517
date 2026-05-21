@@ -1,15 +1,34 @@
-package org.fis;
+Candidato: package org.fis;
 
-public class HU05Resultados {
+public class Candidato {
+
+    private String nombre;
+    private String partidoPolitico;
+    private String cargo;
+
+    // Constructor
+    public Candidato(String nombre, String partidoPolitico, String cargo) {
+        this.nombre = nombre;
+        this.partidoPolitico = partidoPolitico;
+        this.cargo = cargo;
+    }
+
+    // Método básico
+    public void mostrarCandidato() {
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Partido: " + partidoPolitico);
+        System.out.println("Cargo: " + cargo);
+    }
 
     public static void main(String[] args) {
 
-        int votosCarlos = 5;
-        int votosMaria = 3;
+        Candidato candidato =
+                new Candidato(
+                        "Laura Gómez",
+                        "Partido Verde",
+                        "Presidencia"
+                );
 
-        System.out.println("Resultados:");
-        System.out.println("Carlos: " + votosCarlos);
-        System.out.println("Maria: " + votosMaria);
-
+        candidato.mostrarCandidato();
     }
 }
