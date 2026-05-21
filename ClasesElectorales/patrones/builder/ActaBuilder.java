@@ -28,13 +28,6 @@ public class ActaBuilder {
     }
 
     public Acta construir() {
-        if (id <= 0) {
-            throw new IllegalArgumentException("El id del acta debe ser mayor que cero");
-        }
-
-        if (mesa == null) {
-            throw new IllegalArgumentException("El acta debe tener una mesa asociada");
-        }
 
         Acta acta = new Acta();
         acta.setId(id);
