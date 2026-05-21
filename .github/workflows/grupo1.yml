@@ -1,0 +1,33 @@
+name: CI Grupo 1
+on:
+  push:
+    branches:
+      - Grupo1
+  workflow_dispatch: 
+
+jobs:
+  build:
+    name: Construir Proyecto
+    runs-on: ubuntu-latest
+
+    steps:
+      
+      - name: Clonar Codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+      
+      - name: Build
+        run: mvn clean compile
+
+      - name: subir el artefacto
+        uses: actions/upload-artifact@v4
+        with:
+          name: classes
+          path: target/classes
+          retention-days: 7
