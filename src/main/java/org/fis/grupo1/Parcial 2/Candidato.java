@@ -1,7 +1,7 @@
 package org.fis.grupo1.Parcial2;
 
   public class Candidato {
-
+//
     private String nombre;
     private String partidoPolitico;
     private String cargo;
