@@ -1,17 +1,34 @@
-package org.fis;
+ package org.fis;
 
-public class Copropietario {
+public class ProcesoElectoral {
+
+    private String tipoEleccion;
+    private String fecha;
+    private String estado;
+
+    // Constructor
+    public ProcesoElectoral(String tipoEleccion, String fecha, String estado) {
+        this.tipoEleccion = tipoEleccion;
+        this.fecha = fecha;
+        this.estado = estado;
+    }
+
+    // Método básico
+    public void mostrarProceso() {
+        System.out.println("Tipo de elección: " + tipoEleccion);
+        System.out.println("Fecha: " + fecha);
+        System.out.println("Estado: " + estado);
+    }
 
     public static void main(String[] args) {
-//declaro
-        String nombre = "Ana";
-        String documento = "12345";
-//se registra el copropietario
-        if(!nombre.equals("") && !documento.equals("")) {
-            System.out.println("Copropietario registrado: " + nombre);
-        } else {
-            System.out.println("Error: datos incompletos");
-        }
 
+        ProcesoElectoral proceso =
+                new ProcesoElectoral(
+                        "Presidencial",
+                        "29/05/2026",
+                        "Activo"
+                );
+
+        proceso.mostrarProceso();
     }
 }
