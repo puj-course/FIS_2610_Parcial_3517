@@ -1,5 +1,7 @@
 package org.fis.grupo4;
 
+import org.fis.grupo4.facade.sistemaelectoralfacadee;
+
 public class Main {
     public static void main(String[] args) {
         System.out.println("======================================================");
@@ -29,8 +31,8 @@ public class Main {
                     "user" + (i+1) + "@mail.com");
         }
 
-        SistemaVotacion sistema = new SistemaVotacion();
-        ResultadoElectoral resultados = new ResultadoElectoral();
+        sistemaelectoralfacadee sistema = new sistemaelectoralfacadee();
+        sistema.agregarObservador(mensaje -> System.out.println("[Evento] " + mensaje));
 
         // 4. Simular Votación con Validaciones (votación anónima)
         java.util.List<String> votantesValidos = new java.util.ArrayList<>();
@@ -38,10 +40,7 @@ public class Main {
             System.out.println("Procesando a: " + v.getNombre());
             // no se indica públicamente por quién vota el usuario
             Candidato elegido = candidatos[(int) (Math.random() * candidatos.length)];
-            if (ValidadorSistema.puedeVotar(v, elegido)) {
-                Voto nuevoVoto = new Voto("V-" + v.getId(), v, elegido, "10:00 AM");
-                sistema.registrarVoto(nuevoVoto);
-                resultados.sumarVoto(elegido);
+            if (sistema.registrarVoto("V-" + v.getId(), v, elegido, "10:00 AM")) {
                 votantesValidos.add(v.getNombre());
                 if ("Voto en Blanco".equals(elegido.getNombre())) {
                     System.out.println("✅ Voto en blanco registrado.");
@@ -57,6 +56,6 @@ public class Main {
 
         // 5. Finalizar
         elecciones.cerrarProceso();
-        resultados.mostrarResultados();
+        sistema.mostrarResultados();
     }
 }
