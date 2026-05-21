@@ -1,4 +1,6 @@
-String nombre = "Ana";
-String documento = "12345";
+package org.fis.grupo1;
 
-System.out.println("Copropietario registrado: " + nombre);
+public class registrarCoopropietarios {
+    String nombre = "Ana";
+    String documento = "12345";
+}

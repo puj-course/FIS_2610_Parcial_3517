@@ -1,3 +1,5 @@
-hu-5: int votosCarlos = 1;
+package org.fis.grupo1;
 
-System.out.println("Votos para Carlos: " + votosCarlos); 
+class HU5 {
+    int votosCarlos = 1;
+}
