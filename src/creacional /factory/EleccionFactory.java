@@ -27,6 +27,7 @@ class EleccionLegislativaFactory implements EleccionFactory {
         return eleccion; }
 }
 
+//Clase para la respectiva consulta popular. Trabajado JPPB
 class ConsultaPopularFactory implements EleccionFactory {
 
     private final String pregunta;
