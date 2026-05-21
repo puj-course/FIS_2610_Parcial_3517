@@ -1,4 +1,4 @@
-name: Pipeline Empaquetado
+name: Pipeline Empaquetado-G3-NORAFIT
 
 on:
   workflow_dispatch:
