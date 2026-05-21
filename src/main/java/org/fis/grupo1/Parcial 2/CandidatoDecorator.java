@@ -1,86 +1,84 @@
-package org.fis;
+package org.fis.grupo1.parcial2;
 
-// Interfaz base del candidato
-interface InfoCandidato {
-    void mostrarCandidato();
+// Componente
+interface CandidatoComponent {
+
+    void registrarCandidato();
+
+    String getNombre();
+
+    String getPartido();
 }
 
-public class Candidato implements InfoCandidato {
+// Clase base
+class Candidato implements CandidatoComponent {
 
     private String nombre;
-    private String partidoPolitico;
-    private String cargo;
+    private String partido;
 
-    public Candidato(String nombre, String partidoPolitico, String cargo) {
+    public Candidato(String nombre, String partido) {
         this.nombre = nombre;
-        this.partidoPolitico = partidoPolitico;
-        this.cargo = cargo;
+        this.partido = partido;
     }
 
-    public void mostrarCandidato() {
-        System.out.println("Nombre: " + nombre);
-        System.out.println("Partido: " + partidoPolitico);
-        System.out.println("Cargo: " + cargo);
+    @Override
+    public void registrarCandidato() {
+        System.out.println("Candidato registrado: " + nombre);
     }
 
-    public static void main(String[] args) {
+    @Override
+    public String getNombre() {
+        return nombre;
+    }
 
-        InfoCandidato candidato = new Candidato(
-                "Laura Gomez",
-                "Partido Verde",
-                "Presidencia"
-        );
-
-        // Se agregan datos extra sin cambiar la clase Candidato
-        candidato = new Estado(candidato, "Inscrito");
-        candidato = new Nota(candidato, "Registrado para elecciones 2026");
-
-        candidato.mostrarCandidato();
+    @Override
+    public String getPartido() {
+        return partido;
     }
 }
 
-// Decorador base
-abstract class DecoradorCandidato implements InfoCandidato {
+// Decorator base
+abstract class CandidatoDecorator implements CandidatoComponent {
 
-    protected InfoCandidato candidato;
+    protected CandidatoComponent candidato;
 
-    public DecoradorCandidato(InfoCandidato candidato) {
+    public CandidatoDecorator(CandidatoComponent candidato) {
         this.candidato = candidato;
     }
 
-    public void mostrarCandidato() {
-        candidato.mostrarCandidato();
+    @Override
+    public void registrarCandidato() {
+        candidato.registrarCandidato();
+    }
+
+    @Override
+    public String getNombre() {
+        return candidato.getNombre();
+    }
+
+    @Override
+    public String getPartido() {
+        return candidato.getPartido();
     }
 }
 
-// Agrega el estado del candidato
-class Estado extends DecoradorCandidato {
+// Decorator concreto
+class CandidatoConValidacion extends CandidatoDecorator {
 
-    private String estado;
-
-    public Estado(InfoCandidato candidato, String estado) {
+    public CandidatoConValidacion(CandidatoComponent candidato) {
         super(candidato);
-        this.estado = estado;
     }
 
-    public void mostrarCandidato() {
-        super.mostrarCandidato();
-        System.out.println("Estado: " + estado);
-    }
-}
+    @Override
+    public void registrarCandidato() {
 
-// Agrega una nota adicional
-class Nota extends DecoradorCandidato {
+        if(getNombre() == null || getNombre().isBlank()) {
+            System.out.println("El candidato no tiene nombre.");
+            return;
+        }
 
-    private String nota;
+        System.out.println("Validando información...");
 
-    public Nota(InfoCandidato candidato, String nota) {
-        super(candidato);
-        this.nota = nota;
-    }
-
-    public void mostrarCandidato() {
-        super.mostrarCandidato();
-        System.out.println("Nota: " + nota);
+        super.registrarCandidato();
     }
 }
