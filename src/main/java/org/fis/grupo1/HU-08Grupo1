@@ -1,0 +1,12 @@
+public class HU08 {
+    //Logica para la HU08
+    // 
+
+    public static void mostrarMensaje() {
+        System.out.println("Esta es la issue 08Grupo1.");
+    }
+
+    public static void main(String[] args) {
+        mostrarMensaje();
+    }
+}

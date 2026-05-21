@@ -1,0 +1,34 @@
+package org.fis;
+
+public class ResultadoElectoral {
+
+    private String candidato;
+    private int votos;
+    private int mesa;
+
+    // Constructor
+    public ResultadoElectoral(String candidato, int votos, int mesa) {
+        this.candidato = candidato;
+        this.votos = votos;
+        this.mesa = mesa;
+    }
+
+    // Método básico
+    public void mostrarResultado() {
+        System.out.println("Candidato: " + candidato);
+        System.out.println("Votos obtenidos: " + votos);
+        System.out.println("Mesa: " + mesa);
+    }
+
+    public static void main(String[] args) {
+
+        ResultadoElectoral resultado =
+                new ResultadoElectoral(
+                        "Laura Gómez",
+                        245,
+                        10
+                );
+
+        resultado.mostrarResultado();
+    }
+}
