@@ -43,9 +43,9 @@ public class Main {
             if (sistema.registrarVoto("V-" + v.getId(), v, elegido, "10:00 AM")) {
                 votantesValidos.add(v.getNombre());
                 if ("Voto en Blanco".equals(elegido.getNombre())) {
-                    System.out.println("✅ Voto en blanco registrado.");
+                    System.out.println("Voto en blanco registrado.");
                 } else {
-                    System.out.println("✅ Voto registrado anónimamente.");
+                    System.out.println("Voto registrado anónimamente.");
                 }
             }
         }
