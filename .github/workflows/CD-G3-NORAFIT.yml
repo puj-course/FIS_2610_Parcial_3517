@@ -1,4 +1,4 @@
-name: Pipeline Empaquetado G3 NoraFit
+name: Pipeline Empaquetado
 
 on:
   workflow_dispatch:
@@ -10,10 +10,6 @@ jobs:
   empaquetar:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: scr/scrBackend/norafit
-
     steps:
       - name: Clonar repositorio
         uses: actions/checkout@v5
@@ -24,7 +20,7 @@ jobs:
           distribution: temurin
           java-version: '17'
           cache: maven
-          cache-dependency-path: scr/scrBackend/norafit/pom.xml
+          cache-dependency-path: pom.xml
 
       - name: Dar permisos al wrapper de Maven
         run: chmod +x mvnw
@@ -47,6 +43,6 @@ jobs:
       - name: Subir artefacto generado
         uses: actions/upload-artifact@v4
         with:
-          name: norafit-jar
-          path: scr/scrBackend/norafit/target/*.jar
+          name: app-jar
+          path: target/*.jar
           if-no-files-found: error
