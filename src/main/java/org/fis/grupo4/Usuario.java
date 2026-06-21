@@ -13,11 +13,22 @@ public class Usuario {
         this.correo = correo;
     }
 
-    // Getters y Setters
+    public String getId() { return id; }
     public String getNombre() { return nombre; }
     public String getDocumento() { return documento; }
+    public String getCorreo() { return correo; }
 
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id='" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", documento='" + documento + '\'' +
+                ", correo='" + correo + '\'' +
+                '}';
+    }
     public void mostrarUsuario() {
-        System.out.println("Usuario: " + nombre + " | Documento: " + documento);
+        String docInfo = (documento == null || documento.isEmpty()) ? "SIN DOCUMENTO" : documento;
+        System.out.println("Usuario: " + nombre + " | Documento: " + docInfo);
     }
 }

@@ -14,9 +14,20 @@ public class Candidato {
     }
 
     // Getters
+    public String getId() { return id; }
     public String getNombre() { return nombre; }
     public String getPartido() { return partido; }
+    public int getNumeroTarjeton() { return numeroTarjeton; }
 
+    @Override
+    public String toString() {
+        return "Candidato{" +
+                "id='" + id + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", partido='" + partido + '\'' +
+                ", numeroTarjeton=" + numeroTarjeton +
+                '}';
+    }
     public void mostrarCandidato() {
         System.out.println("Candidato: " + nombre + " [" + numeroTarjeton + "] - Partido: " + partido);
     }

@@ -19,6 +19,10 @@ public class ResultadoElectoral {
         conteo.put(nombre, conteo.getOrDefault(nombre, 0) + 1);
     }
 
+    public int getVotos(String nombreCandidato) {
+        return conteo.getOrDefault(nombreCandidato, 0);
+    }
+
     public void mostrarResultados() {
         System.out.println("\n--- RESULTADOS FINALES ---");
         conteo.forEach((nombre, total) -> {
